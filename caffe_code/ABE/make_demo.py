@@ -20,7 +20,7 @@ test_WIDTH = 250
 test_HEIGHT = 100
 caffe.set_mode_gpu()
 caffe.set_device(1)
-net = caffe.Net('./deploy_abe.prototxt', './weight/ABE_00001/ABE_00001_iter_165000.caffemodel', caffe.TEST)
+net = caffe.Net('./deploy.prototxt', './ABE_00001_iter_165000.caffemodel', caffe.TEST)
 phase = 'test'
 writer = cv2.VideoWriter('./demo/mobis_abe_'+phase+''+'.avi', cv2.cv.CV_FOURCC(*'DIVX'), 20, (input_WIDTH, input_HEIGHT))
 std = 5.7385705
