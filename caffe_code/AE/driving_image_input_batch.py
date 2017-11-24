@@ -58,8 +58,9 @@ class input_layer(caffe.Layer):
         self.idx = np.array(range(self.batch_size))
         self.batch = np.array([self.batch_size]*self.batch_size)
         #self.idx = [324]
-        self.path = '/media/ys/1a32a0d7-4d1f-494a-8527-68bb8427297f/End_to_End/'
-        label_path4 = '/media/ys/1a32a0d7-4d1f-494a-8527-68bb8427297f/End_to_End/Mobis_crop/TRAIN1.txt'
+        self.folder_name = '3c_2'
+        self.path = '/media/ys/HU/mobis_20171123/test_road/'+self.folder_name+'/'
+        label_path4 = '/media/ys/HU/mobis_20171123/test_road/'+self.folder_name+'/label/label.txt'
 
         # two tops: data and label
         if len(top) != 2:
@@ -137,7 +138,7 @@ class input_layer(caffe.Layer):
         batch_im = np.zeros((self.batch_size,3,100,250), dtype = np.float32)
         for i in range(self.batch_size):
 #            pdb.set_trace()
-            batch_im[i] = self.load_image_label(self.path+'Mobis_crop/'+self.train_data[self.idx[i]][0])
+            batch_im[i] = self.load_image_label(self.path+self.train_data[self.idx[i]][0])
 #        pdb.set_trace()
         angle = np.zeros((self.batch_size,1), dtype = np.float32)
         for i in range(self.batch_size):

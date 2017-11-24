@@ -4,7 +4,7 @@ import time as timelib
 import pdb
 
 caffe.set_mode_gpu()
-caffe.set_device(1)
+caffe.set_device(0)
 
 solver = caffe.get_solver('/media/ys/1a32a0d7-4d1f-494a-8527-68bb8427297f/end_to_end_driving/caffe_code/AE/solver.prototxt')
 #solver.net.copy_from('/media/ys/1a32a0d7-4d1f-494a-8527-68bb8427297f/End_to_End/caffe/weight/nvidia/nvidia_00001_iter_5000.caffemodel')
