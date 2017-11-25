@@ -1,13 +1,14 @@
-# Enter your network definition here.
-# Use Shift+Enter to update the visualization.
-
 name: "Endtoend_driving_CNN"
-input: "data"
-input_shape {
-  dim: 1
-  dim: 3
-  dim: 100
-  dim: 250
+layer {
+  name: "data"
+  type: "Python"
+  top: "data"
+  top: "label"
+  python_param {
+    module: "driving_image_input_batch"
+    layer: "input_layer"
+    param_str: "{\'input_dir\': \'/media/ys/1a32a0d7-4d1f-494a-8527-68bb8427297f/End_to_End/train\', \'seed\': 1337, \'split\': \'train\', \'mean\': (104, 117, 123), \'batch_size\': 16, \'resize\': (100,250)}"
+  }
 }
 layer {
   name: "conv1_1"
@@ -625,9 +626,240 @@ layer {
   top: "conv7_2"
 }
 layer {
+  name: "deconv7"
+  type: "Deconvolution"
+  bottom: "conv7_2"
+  top: "deconv7"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    num_output:256
+    bias_term: false
+    kernel_size: 3
+    stride: 2
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "Slicer7_1"
+  type: "Slice"
+  bottom: "deconv7"
+  top: "dummy7_1"
+  top: "slice7_1"
+  slice_param {
+    axis: 2
+    slice_point: 1
+  }
+}
+layer {
+  name: "Slicer7_2"
+  type: "Slice"
+  bottom: "slice7_1"
+  top: "dummy7_2"
+  top: "slice7_2"
+  slice_param {
+    axis: 3
+    slice_point: 1
+  }
+}
+layer {
+  name: "deconv7_bn"
+  bottom: "slice7_2"
+  top: "slice7_2"
+  type: "BatchNorm"
+  batch_norm_param {
+    eps: 1e-5
+  }
+}
+layer {
+  name: "deconv7_scale"
+  type: "Scale"
+  bottom: "slice7_2"
+  top: "slice7_2"
+  scale_param {
+    bias_term: true
+  }
+}
+layer {
+  name: "Concate6"
+  type: "Concat"
+  bottom: "conv6_2"
+  bottom: "slice7_2"
+  top: "concat6"
+  slice_param {
+    axis: 1
+  }
+}
+layer {
+  name: "deconv6"
+  type: "Deconvolution"
+  bottom: "concat6"
+  top: "deconv6"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    num_output:512
+    kernel_size: 3
+    stride: 2
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "Slicer6_1"
+  type: "Slice"
+  bottom: "deconv6"
+  top: "dummy6_1"
+  top: "slice6_1"
+  slice_param {
+    axis: 2
+    slice_point: 1
+  }
+}
+layer {
+  name: "Slicer6_2"
+  type: "Slice"
+  bottom: "slice6_1"
+  top: "dummy6_2"
+  top: "slice6_2"
+  slice_param {
+    axis: 3
+    slice_point: 1
+  }
+}
+layer {
+  name: "deconv6_bn"
+  bottom: "slice6_2"
+  top: "slice6_2"
+  type: "BatchNorm"
+  batch_norm_param {
+    eps: 1e-5
+  }
+}
+layer {
+  name: "deconv6_scale"
+  type: "Scale"
+  bottom: "slice6_2"
+  top: "slice6_2"
+  scale_param {
+    bias_term: true
+  }
+}
+layer {
+  name: "Concate5"
+  type: "Concat"
+  bottom: "conv5_2"
+  bottom: "slice6_2"
+  top: "concat5"
+  slice_param {
+    axis: 1
+  }
+}
+layer {
+  name: "deconv5"
+  type: "Deconvolution"
+  bottom: "concat5"
+  top: "deconv5"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    num_output:1024
+    kernel_size: 3
+    stride: 2
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "Slicer5_1"
+  type: "Slice"
+  bottom: "deconv5"
+  top: "dummy5_1"
+  top: "slice5_1"
+  slice_param {
+    axis: 2
+    slice_point: 2
+  }
+}
+layer {
+  name: "Slicer5_2"
+  type: "Slice"
+  bottom: "slice5_1"
+  top: "dummy5_2"
+  top: "slice5_2"
+  slice_param {
+    axis: 3
+    slice_point: 1
+  }
+}
+layer {
+  name: "deconv5_bn"
+  bottom: "slice5_2"
+  top: "slice5_2"
+  type: "BatchNorm"
+  batch_norm_param {
+    eps: 1e-5
+  }
+}
+layer {
+  name: "deconv5_scale"
+  type: "Scale"
+  bottom: "slice5_2"
+  top: "slice5_2"
+  scale_param {
+    bias_term: true
+  }
+}
+layer {
+  name: "Concate4"
+  type: "Concat"
+  bottom: "pool4"
+  bottom: "slice5_2"
+  top: "concat4"
+  slice_param {
+    axis: 1
+  }
+}
+layer {
+  name: "deconv_bn"
+  bottom: "concat4"
+  top: "concat4"
+  type: "BatchNorm"
+  batch_norm_param {
+    eps: 1e-5
+  }
+}
+layer {
+  name: "deconv_scale"
+  type: "Scale"
+  bottom: "concat4"
+  top: "concat4"
+  scale_param {
+    bias_term: true
+  }
+}
+layer {
   name: "fc8_d"
   type: "InnerProduct"
-  bottom: "conv7_2"
+  bottom: "concat4"
   top: "fc8"
   param {
     lr_mult: 1
@@ -707,4 +939,21 @@ layer {
       value: 0
     }
   }
+}
+layer {
+  name: "silence"
+  type: "Silence"
+  bottom: "dummy5_1"
+  bottom: "dummy5_2"
+  bottom: "dummy6_1"
+  bottom: "dummy6_2"
+  bottom: "dummy7_1"
+  bottom: "dummy7_2"
+}
+layer {
+  name: "loss"
+  type: "EuclideanLoss"
+  bottom: "fc10"
+  bottom: "label"
+  top: "loss"
 }

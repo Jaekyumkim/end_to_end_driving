@@ -25,14 +25,11 @@ layer {
   }
   convolution_param {
     num_output: 64
+    bias_term: false
     pad: 1
     kernel_size: 3
     weight_filler {
       type: "xavier"
-    }
-    bias_filler {
-      type: "constant"
-      value: 0
     }
   }
 }
@@ -75,14 +72,11 @@ layer {
   }
   convolution_param {
     num_output: 64
+    bias_term: false
     pad: 1
     kernel_size: 3
     weight_filler {
       type: "xavier"
-    }
-    bias_filler {
-      type: "constant"
-      value: 0
     }
   }
 }
@@ -136,14 +130,11 @@ layer {
   }
   convolution_param {
     num_output: 128
+    bias_term: false
     pad: 1
     kernel_size: 3
     weight_filler {
       type: "xavier"
-    }
-    bias_filler {
-      type: "constant"
-      value: 0
     }
   }
 }
@@ -186,14 +177,11 @@ layer {
   }
   convolution_param {
     num_output: 128
+    bias_term: false
     pad: 1
     kernel_size: 3
     weight_filler {
       type: "xavier"
-    }
-    bias_filler {
-      type: "constant"
-      value: 0
     }
   }
 }
@@ -247,14 +235,11 @@ layer {
   }
   convolution_param {
     num_output: 256
+    bias_term: false
     pad: 1
     kernel_size: 3
     weight_filler {
       type: "xavier"
-    }
-    bias_filler {
-      type: "constant"
-      value: 0
     }
   }
 }
@@ -297,14 +282,11 @@ layer {
   }
   convolution_param {
     num_output: 256
+    bias_term: false
     pad: 1
     kernel_size: 3
     weight_filler {
       type: "xavier"
-    }
-    bias_filler {
-      type: "constant"
-      value: 0
     }
   }
 }
@@ -358,14 +340,11 @@ layer {
   }
   convolution_param {
     num_output: 512
+    bias_term: false
     pad: 1
     kernel_size: 3
     weight_filler {
       type: "xavier"
-    }
-    bias_filler {
-      type: "constant"
-      value: 0
     }
   }
 }
@@ -408,14 +387,11 @@ layer {
   }
   convolution_param {
     num_output: 512
+    bias_term: false
     pad: 1
     kernel_size: 3
     weight_filler {
       type: "xavier"
-    }
-    bias_filler {
-      type: "constant"
-      value: 0
     }
   }
 }
