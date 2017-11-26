@@ -18,7 +18,6 @@ python drive.py model-006.h5
 이후 Udacity_Simulator 폴더에 있는 Default Linux desktop Universal.x86_64를 실행시키고 AUTONOMOUS MODE로 들어가면 자동으로 통신해서 테스트할 수 있다
 
  - File
-
-  NAS/1/end_driving/udacity_simulator에 업로드 해놓음
+   NAS/1/end_driving/udacity_simulator에 업로드 해놓음
   
 https://github.com/naokishibuya/car-behavioral-cloning/blob/master/README.md
